@@ -34,38 +34,11 @@ def auto_complete_query(query):
     else:
         raise Exception(f"Auto-complete query failed: {response.status_code}")
 
-def search_one_way_flights(from_location, to_location, depart_date):
-    """
-    Search for one-way flights from a given location to another on a specific date.
-    """
-    config = get_skyscanner_config()
-    url = "https://sky-scanner3.p.rapidapi.com/flights/search-one-way"
-    params = {
-        "fromEntityId": from_location,
-        "toEntityId": to_location,
-        "departDate": depart_date,
-        "market": config['market'],
-        "locale": config['locale'],
-        "currency": config['currency']
-    }
-    response = requests.get(url, headers=headers, params=params)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        raise Exception(f"Flight search failed: {response.status_code}")
 
 if __name__ == "__main__":
     try:
-        from_location = "New York"
-        to_location = "Los Angeles"
-        depart_date = "2024-07-15"
-        
-        # Get entity IDs
-        from_location_id = int(auto_complete_query(from_location))
-        to_location_id = int(auto_complete_query(to_location))
-        
-        # Search for flights
-        flights = search_one_way_flights(from_location_id, to_location_id, depart_date)
-        print(flights)
+        location_name = "New York"
+        entity_id = auto_complete_query(location_name)
+        print(f"Entity ID for {location_name}: {entity_id}")
     except Exception as e:
         print(f"An error occurred: {e}")
