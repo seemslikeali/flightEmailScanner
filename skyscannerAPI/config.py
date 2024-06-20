@@ -12,14 +12,13 @@ headers = {
     'X-RapidAPI-Mock-Response': "200"
 }
 
-config_file_path = "canada_config.json"
+config_file_path = "skyscannerAPI/canada_config.json"
 
 def get_skyscanner_config():
     """
     Retrieve the Skyscanner configuration and filter for Canada.
     """
     url = "https://sky-scanner3.p.rapidapi.com/get-config"
-    print("Sent call")
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
