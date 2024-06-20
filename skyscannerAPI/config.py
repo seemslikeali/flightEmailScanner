@@ -8,8 +8,8 @@ load_dotenv()
 
 headers = {
     "x-rapidapi-key": os.getenv('RAPIDAPI_KEY'),
-    "x-rapidapi-host": "sky-scanner3.p.rapidapi.com",
-    "Content-Type": "application/json"
+    'x-rapidapi-host': "sky-scanner3.p.rapidapi.com",
+    'X-RapidAPI-Mock-Response': "200"
 }
 
 config_file_path = "canada_config.json"
