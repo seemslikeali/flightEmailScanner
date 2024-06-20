@@ -2,10 +2,11 @@ import requests
 import os
 import json
 from dotenv import load_dotenv
-# Define the RapidAPI headers
 
+# Load environment variables
 load_dotenv()
 
+# Define the RapidAPI headers
 headers = {
     "x-rapidapi-key": os.getenv('RAPIDAPI_KEY'),
     'x-rapidapi-host': "sky-scanner3.p.rapidapi.com",
@@ -36,10 +37,12 @@ def load_config():
     Load the configuration for Canada from a local file or fetch from API if not present.
     """
     if os.path.exists(config_file_path):
+        print("Local configuration file found. Using the local configuration.")
         # Load the config from the local file
         with open(config_file_path, 'r') as file:
             canada_config = json.load(file)
     else:
+        print("Local configuration file not found. Fetching from API.")
         # Fetch the config from the API and save it locally
         canada_config = get_skyscanner_config()
         with open(config_file_path, 'w') as file:
