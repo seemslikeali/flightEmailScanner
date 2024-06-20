@@ -18,27 +18,9 @@ def get_skyscanner_config():
     else:
         raise Exception(f"Failed to get configuration: {response.status_code}")
 
-def auto_complete_query(query):
-    """
-    Get the entityId for a given location name.
-    """
-    url = "https://sky-scanner3.p.rapidapi.com/flights/auto-complete"
-    params = {"query": query}
-    response = requests.get(url, headers=headers, params=params)
-    if response.status_code == 200:
-        results = response.json().get('data', [])
-        if results:
-            return results[0]['presentation']['id']  # Return the first matching entityId
-        else:
-            raise Exception("No matching location found")
-    else:
-        raise Exception(f"Auto-complete query failed: {response.status_code}")
-
-
 if __name__ == "__main__":
     try:
-        location_name = "New York"
-        entity_id = auto_complete_query(location_name)
-        print(f"Entity ID for {location_name}: {entity_id}")
+        config = get_skyscanner_config()
+        print(config)
     except Exception as e:
         print(f"An error occurred: {e}")
