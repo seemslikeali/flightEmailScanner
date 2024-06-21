@@ -1,30 +1,43 @@
-import requests
+import json
 import os
-from dotenv import load_dotenv
-# Define the RapidAPI headers
 
-load_dotenv()
+def save_json_locally(data, filename):
+    directory = os.path.join('temp', 'flightdata', 'roundtrips')
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    filepath = os.path.join(directory, filename)
+    with open(filepath, 'w') as f:
+        json.dump(data, f, indent=4)
 
-headers = {
-    "x-rapidapi-key": os.getenv('RAPIDAPI_KEY'),
-    "x-rapidapi-host": "sky-scanner3.p.rapidapi.com",
-    "Content-Type": "application/json"
-}
-
-def get_skyscanner_config():
-    """
-    Retrieve the Skyscanner configuration including market and locale.
-    """
-    url = "https://sky-scanner3.p.rapidapi.com/get-config"
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        return response.json()['data']
-    else:
-        raise Exception(f"Failed to get configuration: {response.status_code}")
+def display_flight_info(data):
+    flights = data['data']['flightQuotes']['results']
+    for flight in flights:
+        content = flight['content']
+        outbound = content['outboundLeg']
+        inbound = content['inboundLeg']
+        
+        print(f"Flight ID: {flight['id']}")
+        print(f"Price: {content['price']}")
+        print(f"Direct: {'Yes' if content['direct'] else 'No'}")
+        print(f"Outbound:")
+        print(f"  From: {outbound['originAirport']['name']} ({outbound['originAirport']['skyCode']})")
+        print(f"  To: {outbound['destinationAirport']['name']} ({outbound['destinationAirport']['skyCode']})")
+        print(f"  Departure Date: {outbound['localDepartureDateLabel']}")
+        print(f"Inbound:")
+        print(f"  From: {inbound['originAirport']['name']} ({inbound['originAirport']['skyCode']})")
+        print(f"  To: {inbound['destinationAirport']['name']} ({inbound['destinationAirport']['skyCode']})")
+        print(f"  Departure Date: {inbound['localDepartureDateLabel']}")
+        print(f"Trip Duration: {content['tripDuration']}")
+        print("\n-----------------------\n")
 
 if __name__ == "__main__":
-    try:
-        config = get_skyscanner_config()
-        print(config)
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    # Load the JSON data
+    with open('skyscannerAPI/temp/flightdata/roundtrips/flights_data.json', 'r') as f:
+        data = json.load(f)
+    
+    # Save JSON locally
+    save_json_locally(data, 'flights_data.json')
+    
+    # Display flight information
+    display_flight_info(data)
