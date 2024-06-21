@@ -1,0 +1,31 @@
+{
+    "data": [
+        {
+            "presentation": {
+                "title": "Saskatoon",
+                "suggestionTitle": "Saskatoon (YXE)",
+                "subtitle": "Canada",
+                "id": "eyJlIjoiOTU2NzQwMzMiLCJzIjoiWVhFIiwiaCI6IjI3NTM3NDI3IiwidCI6IkFJUlBPUlQifQ==",
+                "skyId": "YXE"
+            },
+            "navigation": {
+                "entityId": "95674033",
+                "entityType": "AIRPORT",
+                "localizedName": "Saskatoon",
+                "relevantFlightParams": {
+                    "skyId": "YXE",
+                    "entityId": "95674033",
+                    "flightPlaceType": "AIRPORT",
+                    "localizedName": "Saskatoon"
+                },
+                "relevantHotelParams": {
+                    "entityId": "27537427",
+                    "entityType": "CITY",
+                    "localizedName": "Saskatoon"
+                }
+            }
+        }
+    ],
+    "status": true,
+    "message": "Successful"
+}

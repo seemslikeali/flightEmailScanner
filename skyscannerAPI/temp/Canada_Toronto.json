@@ -1,0 +1,131 @@
+{
+    "data": [
+        {
+            "presentation": {
+                "title": "Toronto",
+                "suggestionTitle": "Toronto (Any)",
+                "subtitle": "Canada",
+                "id": "eyJlIjoiMjc1MzY2NDAiLCJzIjoiWVRPQSIsImgiOiIyNzUzNjY0MCIsInQiOiJDSVRZIn0=",
+                "skyId": "YTOA"
+            },
+            "navigation": {
+                "entityId": "27536640",
+                "entityType": "CITY",
+                "localizedName": "Toronto",
+                "relevantFlightParams": {
+                    "skyId": "YTOA",
+                    "entityId": "27536640",
+                    "flightPlaceType": "CITY",
+                    "localizedName": "Toronto"
+                },
+                "relevantHotelParams": {
+                    "entityId": "27536640",
+                    "entityType": "CITY",
+                    "localizedName": "Toronto"
+                }
+            }
+        },
+        {
+            "presentation": {
+                "title": "Toronto Pearson International",
+                "suggestionTitle": "Toronto Pearson International (YYZ)",
+                "subtitle": "Canada",
+                "id": "eyJlIjoiOTU2NzMzNTMiLCJzIjoiWVlaIiwiaCI6IjI3NTM2NjQwIiwidCI6IkFJUlBPUlQifQ==",
+                "skyId": "YYZ"
+            },
+            "navigation": {
+                "entityId": "95673353",
+                "entityType": "AIRPORT",
+                "localizedName": "Toronto Pearson International",
+                "relevantFlightParams": {
+                    "skyId": "YYZ",
+                    "entityId": "95673353",
+                    "flightPlaceType": "AIRPORT",
+                    "localizedName": "Toronto Pearson International"
+                },
+                "relevantHotelParams": {
+                    "entityId": "27536640",
+                    "entityType": "CITY",
+                    "localizedName": "Toronto"
+                }
+            }
+        },
+        {
+            "presentation": {
+                "title": "Toronto Island",
+                "suggestionTitle": "Toronto Island (YTZ)",
+                "subtitle": "Canada",
+                "id": "eyJlIjoiOTU2NzMzNTIiLCJzIjoiWVRaIiwiaCI6IjI3NTM2NjQwIiwidCI6IkFJUlBPUlQifQ==",
+                "skyId": "YTZ"
+            },
+            "navigation": {
+                "entityId": "95673352",
+                "entityType": "AIRPORT",
+                "localizedName": "Toronto Island",
+                "relevantFlightParams": {
+                    "skyId": "YTZ",
+                    "entityId": "95673352",
+                    "flightPlaceType": "AIRPORT",
+                    "localizedName": "Toronto Island"
+                },
+                "relevantHotelParams": {
+                    "entityId": "27536640",
+                    "entityType": "CITY",
+                    "localizedName": "Toronto"
+                }
+            }
+        },
+        {
+            "presentation": {
+                "title": "Hamilton",
+                "suggestionTitle": "Hamilton (YHM)",
+                "subtitle": "Canada",
+                "id": "eyJlIjoiOTU2NzMzNTciLCJzIjoiWUhNIiwiaCI6IjI3NTM2NjQwIiwidCI6IkFJUlBPUlQifQ==",
+                "skyId": "YHM"
+            },
+            "navigation": {
+                "entityId": "95673357",
+                "entityType": "AIRPORT",
+                "localizedName": "Hamilton",
+                "relevantFlightParams": {
+                    "skyId": "YHM",
+                    "entityId": "95673357",
+                    "flightPlaceType": "AIRPORT",
+                    "localizedName": "Hamilton"
+                },
+                "relevantHotelParams": {
+                    "entityId": "27536640",
+                    "entityType": "CITY",
+                    "localizedName": "Toronto"
+                }
+            }
+        },
+        {
+            "presentation": {
+                "title": "Kitchener / Waterloo",
+                "suggestionTitle": "Kitchener / Waterloo (YKF)",
+                "subtitle": "Canada",
+                "id": "eyJlIjoiMTI4NjY5MTc1IiwicyI6IllLRiIsImgiOiIyNzUzNjY0MCIsInQiOiJBSVJQT1JUIn0=",
+                "skyId": "YKF"
+            },
+            "navigation": {
+                "entityId": "128669175",
+                "entityType": "AIRPORT",
+                "localizedName": "Kitchener / Waterloo",
+                "relevantFlightParams": {
+                    "skyId": "YKF",
+                    "entityId": "128669175",
+                    "flightPlaceType": "AIRPORT",
+                    "localizedName": "Kitchener / Waterloo"
+                },
+                "relevantHotelParams": {
+                    "entityId": "27536640",
+                    "entityType": "CITY",
+                    "localizedName": "Toronto"
+                }
+            }
+        }
+    ],
+    "status": true,
+    "message": "Successful"
+}

@@ -1,0 +1,31 @@
+{
+    "data": [
+        {
+            "presentation": {
+                "title": "London",
+                "suggestionTitle": "London (YXU)",
+                "subtitle": "Canada",
+                "id": "eyJlIjoiOTU2NzM3NDMiLCJzIjoiWVhVIiwiaCI6IjI3NTM3NDM3IiwidCI6IkFJUlBPUlQifQ==",
+                "skyId": "YXU"
+            },
+            "navigation": {
+                "entityId": "95673743",
+                "entityType": "AIRPORT",
+                "localizedName": "London",
+                "relevantFlightParams": {
+                    "skyId": "YXU",
+                    "entityId": "95673743",
+                    "flightPlaceType": "AIRPORT",
+                    "localizedName": "London"
+                },
+                "relevantHotelParams": {
+                    "entityId": "27537437",
+                    "entityType": "CITY",
+                    "localizedName": "London"
+                }
+            }
+        }
+    ],
+    "status": true,
+    "message": "Successful"
+}
