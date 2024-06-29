@@ -4,6 +4,10 @@ from exchangelib import DELEGATE, Account, Credentials
 import re
 import requests
 import time
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+import pickle
 
 # Load environment variables from .env file
 load_dotenv()
@@ -16,16 +20,48 @@ def connect_to_outlook():
     account = Account(email, credentials=creds, autodiscover=True, access_type=DELEGATE)
     return account
 
-# Function to get emails from a specific folder
-def get_emails(account, folder_name='inbox'):
+# Function to get emails from a specific folder in Outlook
+def get_outlook_emails(account, folder_name='inbox'):
     folder = getattr(account, folder_name)
-    return folder.all()
+    return list(folder.all())  # Convert QuerySet to list
+
+# Function to connect to Gmail account
+def connect_to_gmail():
+    SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+    creds = None
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+    service = build('gmail', 'v1', credentials=creds)
+    return service
+
+# Function to get emails from Gmail
+def get_gmail_emails(service):
+    results = service.users().messages().list(userId='me', labelIds=['INBOX']).execute()
+    messages = results.get('messages', [])
+    emails = []
+    for msg in messages:
+        msg = service.users().messages().get(userId='me', id=msg['id']).execute()
+        subject = ''
+        for header in msg['payload']['headers']:
+            if header['name'] == 'Subject':
+                subject = header['value']
+        emails.append({'id': msg['id'], 'subject': subject})
+    return emails
 
 # Function to search emails based on various criteria
 def search_emails(emails, search_string=None, search_range=None, notified_subjects=None):
     matched_emails = []
     for email in emails:
-        subject = email.subject
+        subject = email.subject if hasattr(email, 'subject') else email['subject']
         
         # Check if subject has already been notified
         if subject in notified_subjects:
@@ -81,7 +117,9 @@ def save_notified_subjects(filename, notified_subjects):
 # Replace these with your actual credentials and webhook URL
 matches_filename = "matches.txt"
 
-account = connect_to_outlook()
+# Connect to both Outlook and Gmail
+outlook_account = connect_to_outlook()
+gmail_service = connect_to_gmail()
 
 search_string = "800$"
 search_range = (0, 1200)
@@ -92,23 +130,26 @@ print("Script is running...")
 
 while True:
     try:
-        emails = get_emails(account)
-        matched_emails = search_emails(emails, search_string, search_range, notified_subjects)
+        outlook_emails = get_outlook_emails(outlook_account)
+        gmail_emails = get_gmail_emails(gmail_service)
         
-        new_matches = [email for email in matched_emails if email.subject not in notified_subjects]
+        all_emails = outlook_emails + gmail_emails
+        matched_emails = search_emails(all_emails, search_string, search_range, notified_subjects)
+        
+        new_matches = [email for email in matched_emails if (email['subject'] if isinstance(email, dict) else email.subject) not in notified_subjects]
         
         if new_matches:
             print(f"Found {len(new_matches)} new matched email(s).")
             for email in new_matches:
-                content = f"Matched Email: {email.subject}"
+                content = f"Matched Email: {email['subject'] if isinstance(email, dict) else email.subject}"
                 send_discord_notification(content)
-                notified_subjects.append(email.subject)
+                notified_subjects.append(email['subject'] if isinstance(email, dict) else email.subject)
         else:
             print("No new matches found.")
         
         save_notified_subjects(matches_filename, notified_subjects)
         
-        time.sleep(10)
+        time.sleep(1000)
     except Exception as e:
         print(f"An error occurred: {e}")
         time.sleep(10)
